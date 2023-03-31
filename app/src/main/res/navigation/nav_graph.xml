@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    android:label="TODOLIst"
+    app:startDestination="@id/itemsListFragment">
+
+    <fragment
+        android:id="@+id/itemsListFragment"
+        android:name="com.mrgelatine.todolist.ItemsListFragment"
+        android:label="ItemsListFragment"
+        tools:layout="@layout/fragment_items_list" >
+        <action
+            android:id="@+id/action_itemsListFragment_to_itemCreateFragment"
+            app:destination="@id/itemCreateFragment" />
+        <action
+            android:id="@+id/action_itemsListFragment_to_itemInfoFragment"
+            app:destination="@id/itemInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemInfoFragment"
+        android:name="com.mrgelatine.todolist.ItemInfoFragment"
+        android:label="fragment_add_line"
+        tools:layout="@layout/fragment_item_info" >
+        <action
+            android:id="@+id/action_itemInfoFragment_to_itemsListFragment"
+            app:destination="@id/itemsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemCreateFragment"
+        android:name="com.mrgelatine.todolist.ItemCreateFragment"
+        android:label="fragment_item_create"
+        tools:layout="@layout/fragment_item_create" >
+        <action
+            android:id="@+id/action_itemCreateFragment_to_itemsListFragment"
+            app:destination="@id/itemsListFragment" />
+    </fragment>
+
+</navigation>

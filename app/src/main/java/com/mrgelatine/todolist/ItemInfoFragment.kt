@@ -1,5 +1,7 @@
 package com.mrgelatine.todolist
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,8 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,13 +36,18 @@ class ItemInfoFragment() : Fragment() {
             findNavController().popBackStack()
         }
     }
+    @SuppressLint("SetTextI18n")
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val viewModel: itemRowsViewModel by activityViewModels()
+        val time = LocalDateTime.ofInstant(viewModel.curRow.date, ZoneId.systemDefault());
         val binding = inflater.inflate(R.layout.fragment_item_info, container, false)
-        binding.findViewById<TextView>(R.id.itemInfoPreview).text = viewModel.curRow.info
+        val dateInfo = "${time.hour}:${time.minute} ${time.dayOfMonth} ${time.month} ${time.year}"
+        binding.findViewById<TextView>(R.id.itemDatePreview).text = dateInfo
+        binding.findViewById<TextView>(R.id.itemInfoPreview).text = viewModel.curRow.text
 
         return binding
     }

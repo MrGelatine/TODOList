@@ -8,10 +8,19 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/itemDatePreview"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:inputType="textPersonName"
+        android:layout_weight = "1"
+        android:textAlignment="textEnd"/>
+    <TextView
         android:id="@+id/itemInfoPreview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
         android:inputType="textPersonName"
-        android:layout_margin="10dp"/>
+        android:layout_weight = "1"/>
 
 </LinearLayout>

@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mrgelatine.todolist.databinding.RowBinding
+import io.realm.kotlin.Realm
+import io.realm.kotlin.ext.query
 
-class TODOLIistAdapter(val vm:itemRowsViewModel): RecyclerView.Adapter<TODOListViewHolder>() {
+class TODOLIistAdapter(val vm:itemRowsViewModel, val realm:Realm): RecyclerView.Adapter<TODOListViewHolder>() {
     var recyclerRows:MutableList<DataRow> = mutableListOf()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TODOListViewHolder {
         val binding:RowBinding= DataBindingUtil.inflate(
@@ -25,11 +27,15 @@ class TODOLIistAdapter(val vm:itemRowsViewModel): RecyclerView.Adapter<TODOListV
         val ind = recyclerRows.indexOf(row)
         recyclerRows.removeAt(ind)
         notifyItemRemoved(ind)
+        realm.writeBlocking {
+            val writeTransactionItems = query<NoteRealmObject>("name == $0 AND text == $1",row.name.get()!!,row.text).find()
+            delete(writeTransactionItems.first())
+        }
+
     }
     fun refresh(data: MutableList<DataRow>){
         recyclerRows = data
     }
-
 
     override fun getItemCount(): Int {
         return recyclerRows.size

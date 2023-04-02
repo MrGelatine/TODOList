@@ -41,9 +41,9 @@ class ItemsListFragment() : Fragment() {
         binding.addButton.setOnClickListener{
             findNavController().navigate(R.id.itemCreateFragment)
         }
-        viewModel.data.observe(viewLifecycleOwner,Observer<MutableList<DataRow>>{
+        viewModel.data.observe(viewLifecycleOwner) {
             viewModel.adapter.refresh(it)
-        })
+        }
         binding.adapter = viewModel.adapter
         return binding.root
     }
